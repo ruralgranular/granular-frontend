@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: granular-repository
+    image: granular-repository
+    build: ./frontend/granular-repository
+    ports:
+     - 3010:3000
+    restart: on-failure
+    environment:
+      - REACT_APP_API_URL=http://10.5.0.31:8000
+
+  backend:
+    container_name: granular-backend
+    image: granular-backend
+    build: ./granular-backend/backend
+    ports:
+      - 8000:80
+    volumes:
+      - ./granular-backend/backend/app:/code/app
+    restart: on-failure
